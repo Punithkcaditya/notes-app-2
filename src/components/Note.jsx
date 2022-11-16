@@ -1,21 +1,36 @@
 import {useState,React} from 'react'
 
-const Note = ({note,deleteNote}) => {
+const Note = ({note,deleteNote, updateNote}) => {
 
 const [modeEdit, setModeEdit] = useState(false);
 const [item, setItem] = useState(note);
 
-const toggle = () => {
+const toggle = (e) => {
+  e.preventDefault();
   setModeEdit(!modeEdit);
   setItem(note)
 }
 
+const edit = (e) =>{
+  e.preventDefault();
+updateNote(item);
+setModeEdit(false);
+}
+
+
   return (
   
       
-        <li style={{marginBottom: '.6rem'}}>
-          <div>id : {note.id}</div>
-          {
+    <div class="column is-one-quarter">
+      <div className="card">
+        <header className="card-header">
+          <p className="card-header-title">
+          Id : {note.id}
+          </p>
+        </header>
+        <div class="card-content">
+        <p class="card-content">
+        {
             modeEdit ? 
             <label>
               <input type="text" value={item.title}  onChange={(ev) => setItem({...item, title: ev.target.value})}/>
@@ -29,17 +44,21 @@ const toggle = () => {
             </label>:<div>body: {note.body}</div>
 
           }
-           <button onClick={()=> toggle()}>{modeEdit ? 'cortar' : 'editar'}</button>
-           {
-                 modeEdit &&
-                 <button>nuero</button>
-           }
-           {
-            !modeEdit &&
-            <button onClick={()=> deleteNote(note.id)}>X</button>
+     
+        </p>
+        </div>
 
-           }
-        </li>
+      <footer class="card-footer">
+    <a href={'/'} class="card-footer-item" onClick={(e)=> toggle(e)}>{modeEdit ? 'cortar' : 'editar'}  </a>
+    
+    {
+      modeEdit ? <a href={'/'} class="card-footer-item" onClick={(e)=> edit(e)}>nuero</a> : <a href={'/'} class="card-footer-item" onClick={(e)=> deleteNote(note.id,e)}>X</a>
+    }
+  
+  </footer>
+  </div>
+      
+        </div>
       
    
   );

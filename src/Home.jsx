@@ -23,11 +23,14 @@ export default function Dashboard() {
   return (
     <>
       <pre>{JSON.stringify(notes)}</pre>
-
-    <Notes notes={notes} setNotes={setNotes}></Notes>
+      <div className="container">
+        <h1 className="title has-text-centered mt-5"></h1>
+      <Notes notes={notes} setNotes={setNotes}></Notes>
       <Form  notes={notes} setNotes={setNotes}></Form>
       {/* <button onClick={() => changeState()}>change</button> */}
       <br></br>
+      </div>
+
 
     
     </>
